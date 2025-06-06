@@ -1,0 +1,15 @@
+## Configure Firewall for SSH 
+ssh_allowed_ip:
+  # - 10.118.20.100/32 # elk-tesp07-mgmt01
+  # - 10.118.20.110/32 # elk-tesp07-mgmt02
+  # - 10.118.20.104/32 # elk-tesp07-win01
+  # - 10.118.18.0/24 # VLAN PSM TESP07
+  # - 10.118.14.0/24 # Ponto setup TESP07
+  - 0.0.0.0/0 # Do not block SSH Connections 
+
+ssh_port: "22"
+
+## Telegraf monitoring
+telegraf_rpm_file: "telegraf.rpm"
+telegraf_monitoing_regexp: ''
+telegraf_monitoring_line: ''

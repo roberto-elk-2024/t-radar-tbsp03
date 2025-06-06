@@ -1,0 +1,76 @@
+# TOTVS Edge
+totvs_edge: "tbsp03"
+
+# Logstash
+logstash_user: "logstash_tradar"
+logstash_password: "{{ vault_logstash_password }}"
+logstash_cert_path: "/etc/logstash/certs/"
+
+# Logstash Traffic Control Vars
+
+# Limites QoS trafego elasticsearch
+es_bandwidth_limit_rate: 100Mbit
+es_bandwidth_limit_ceil: 100Mbit
+
+# Nome da interface para aplicar o QoS / Keepalived - VRRP
+interface_name: ens192
+
+# Should be 'true'  when using a elasticsearch cluster in other TOTVS Edge such as Backup Edges and TESP04.
+enable_traffic_control: true
+
+# Cloudflare Pipeline OCI Access / Secret Key
+oci_bucket_cloudflare_access_key: "{{ vault_oci_bucket_cloudflare_access_key }}"
+oci_bucket_cloudflare_secret_key: "{{ vault_oci_bucket_cloudflare_secret_key }}"
+
+# Keystore Password
+logstash_keystore_pass: "{{ vault_logstash_keystore_pass }}"
+
+# Beats TLS
+ssl_certificate_authorities_file: "/etc/logstash/certs/t-radar-trd-ca.pem"
+ssl_certificate_file: "/etc/logstash/certs/logstash-elk-tbsp03.crt"
+ssl_key_file: "/etc/logstash/certs/logstash-elk-tbsp03-pk8.key"
+
+# Elasticsearch output
+elasticsearch_ca_cert: "t-radar-trd-ca.pem"
+elasticsearch_output:
+  - "https://10.118.20.121:9200"
+  - "https://10.118.20.122:9200"
+  - "https://10.118.20.123:9200"
+
+## CA CLUSTER MONITORING  
+elasticsearch_ca_cert_mon: "t-radar-monitoring-ca.pem"
+es_remote_monitoring_user: "remote_monitoring_user"
+es_remote_monitoring_user_password: "{{ vault_es_remote_monitoring_user_password }}"
+monitoring_cluster_uuid: "V-6UEHPfT5ORbvS6Jx8y-g"
+metricbeat_path: "/etc/metricbeat"
+elasticsearch_mon_output:
+  - "172.27.20.151:9201"
+  - "172.27.20.152:9201"
+  - "172.27.20.153:9201"
+
+# Filebeat monitoring user
+filebeat_user: "beats_user"
+filebeat_password: "{{ vault_filebeat_password }}"
+filebeat_monitoting_conf_path: "/etc/filebeat-monitoring/"
+
+# Specifics for dns unbound
+logstash_unbound_tcp_port: "9002"
+logstash_unbound_udp_port: "9002"
+
+## JVM configuration
+jvm_initial_memory: 16g
+jvm_max_memory: 16g
+
+## Telegraf monitoring
+telegraf_monitoring_username: "telegraf-monitoring"
+telegraf_monitoring_password: "{{ vault_telegraf_monitoring_password }}"
+telegraf_monitoing_regexp: '.*ls-telegraf-mon.cloudtotvs.com.br'
+telegraf_monitoring_line: '127.0.0.1 ls-telegraf-mon.cloudtotvs.com.br'
+
+## Filesystem config
+mount_point_dir: "/var/lib/logstash"
+lv_size_free: "95"
+
+## KEEPALIVED / VRRP
+keepalived_vip: "10.123.144.213/24"
+keepalived_pass: "{{ vault_keepalived_pass }}"
